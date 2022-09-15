@@ -18,26 +18,14 @@
 `$ /usr/local/opt/postgres/bin/createuser -s postgres` (***apenas se*** utiliza MacOS + HomeBrew)<br>
 `$ pip install -r requirements.txt`
 
-* Inicie o servidor do PostgreSQL<br>
-`$ pg_ctl -D /usr/local/var/postgres start` (MacOS + HomeBrew)<br>
-`$ sudo service postgresql start` (Linux) <br>
-  
-* Crie um banco de dados chamado **pokemon** no seu PostgreSQL Client favorito (eu uso o Postbird)<br>
+* Inicie o servidor do MongoDB<br>
+`$ sudo systemctl start mongod.service`
+`$ sudo systemctl status mongod`
 
-* Inicie o processo de migração do banco de dados:<br>
-`$ flask db init`
-  
-* Crie o script de migração do banco de dados:<br>
-`$ flask db migrate`
-
-* Atualize o banco de dados:<br>
-`$ flask db upgrade`
-
-* Rode o script que insere os dados no banco:<br>
-`$ python insert.py`
 
 ## 💻 Como executar
 * Rodar o back-end<br>
+`$ export FLASK_APP=app`
 `$ flask run`
 
 ## 🎯 Consultas disponibilizadas por endpoints
