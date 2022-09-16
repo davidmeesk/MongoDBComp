@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, g
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
+import time
 
 app = Flask(__name__)
 
@@ -17,3 +18,12 @@ def get_pokedex():
     list_cur = list(pok)
     json_data = dumps(list_cur)
     return json_data
+
+@app.before_request
+def before_request():
+    g.start = time.time()
+
+@app.teardown_request
+def teardown_request(exception=None):
+    diff = time.time() - g.start
+    print("query time: " + str(diff))
