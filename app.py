@@ -27,3 +27,19 @@ def before_request():
 def teardown_request(exception=None):
     diff = time.time() - g.start
     print("query time: " + str(diff))
+
+@app.route("/stats", methods=['GET'])
+def get_stats():
+    pok = mongo.db.pokedex.aggregate( [
+        {'$lookup':
+           {
+             'from': "pokemon",
+             'localField': "Name",
+             'foreignField': "pokename",
+             'as': "specimens"
+           }
+        }
+    ])
+    list_cur = list(pok)
+    json_data = dumps(list_cur)
+    return json_data

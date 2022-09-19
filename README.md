@@ -16,12 +16,14 @@
 
 * Instalando as dependências (repetir esses 2 passos a cada vez que um novo pacote for instalado)<br>
 `$ /usr/local/opt/postgres/bin/createuser -s postgres` (***apenas se*** utiliza MacOS + HomeBrew)<br>
-`$ pip install -r requirements.txt`
+`$ pip install -r requirements.txt`<br>
 
 * Inicie o servidor do MongoDB<br>
-`$ sudo systemctl start mongod.service`
-`$ sudo systemctl status mongod`
+`$ sudo systemctl start mongod.service`<br>
+`$ sudo systemctl status mongod`<br>
 
+* Importar dados para o servidor <br>
+`$ mongoimport --db pokemon --collection pokemon --type csv --file data/pokemon.csv --headerline` <br>
 
 ## 💻 Como executar
 * Rodar o back-end<br>
