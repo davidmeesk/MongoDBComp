@@ -30,15 +30,19 @@ def teardown_request(exception=None):
 
 @app.route("/stats", methods=['GET'])
 def get_stats():
-    pok = mongo.db.pokedex.aggregate( [
+    pok = mongo.db.pokemon.aggregate( [
         {'$lookup':
            {
-             'from': "pokemon",
-             'localField': "Name",
-             'foreignField': "pokename",
-             'as': "specimens"
+             'from': "pokedex",
+             'localField': "pokename",
+             'foreignField': "Name",
+             'as': "stats"
            }
-        }
+        },
+        {'$sort' : {
+            'stats.number': 1
+            }
+        }  
     ])
     list_cur = list(pok)
     json_data = dumps(list_cur)
