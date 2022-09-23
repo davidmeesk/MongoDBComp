@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
 @app.route("/", methods=['GET'])
 def get_pokedex():
-    pok = mongo.db.pokemon.find()
+    pok = mongo.db.pokedex.find()
     list_cur = list(pok)
     json_data = dumps(list_cur)
     return json_data
@@ -44,6 +44,23 @@ def get_stats():
             }
         }  
     ])
+    list_cur = list(pok)
+    json_data = dumps(list_cur)
+    return json_data
+
+@app.route("/adjust", methods=['GET'])
+def adjust():
+    myquery = { "Legendary": "True" }
+    newvalues = { "$set": { "Legendary": True } }
+    mongo.db.pokedex.update_many(myquery, newvalues)
+    myquery = { "Legendary": "False" }
+    newvalues = { "$set": { "Legendary": False } }
+    mongo.db.pokedex.update_many(myquery, newvalues)
+    return {}
+
+@app.route("/legendaries", methods=['GET'])
+def get_legendaries():
+    pok = mongo.db.pokedex.find({"Legendary" : True})
     list_cur = list(pok)
     json_data = dumps(list_cur)
     return json_data
