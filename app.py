@@ -64,3 +64,19 @@ def get_legendaries():
     list_cur = list(pok)
     json_data = dumps(list_cur)
     return json_data
+
+@app.route("/teams", methods=['GET'])
+def get_teams():
+    pok = mongo.db.trainers.aggregate( [
+        {'$lookup':
+           {
+             'from': "pokemon",
+             'localField': "trainerID",
+             'foreignField': "trainerID",
+             'as': "pokemon"
+           }
+        } 
+    ])
+    list_cur = list(pok)
+    json_data = dumps(list_cur)
+    return json_data
