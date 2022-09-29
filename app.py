@@ -80,3 +80,10 @@ def get_teams():
     list_cur = list(pok)
     json_data = dumps(list_cur)
     return json_data
+
+@app.route("/higherLevel", methods=['GET'])
+def higher_level():
+    pok = mongo.db.pokemon.find({"pokelevel" : { "$gt" : 40 }})
+    list_cur = list(pok)
+    json_data = dumps(list_cur)
+    return json_data
